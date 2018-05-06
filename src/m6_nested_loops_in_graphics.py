@@ -3,15 +3,15 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Bowen Li.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
 
 def main():
     """ Calls the other functions to demonstrate them. """
-    run_test_draw_L()
+    # run_test_draw_L()
     run_test_draw_wall_on_right()
 
 
@@ -80,10 +80,44 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    X=circle.center.x
+    Y=circle.center.y
+    R=circle.radius
+    OriginalX=circle.center.x
 
+    for k in range(r):
+        for p in range(3):
+            NewCircle=rg.Circle(rg.Point(X,Y),R)
+            NewCircle.fill_color=circle.fill_color
+            NewCircle.attach_to(window)
+            window.render(0.1)
+            X+=R*2
+        X=OriginalX
+        Y+=R*2
+    for i in range(3):
+        for a in range(3):
+            NewCircle = rg.Circle(rg.Point(X, Y), R)
+            NewCircle.fill_color = circle.fill_color
+            NewCircle.attach_to(window)
+            window.render(0.1)
+            X += R * 2
+        X = OriginalX
+        Y += R * 2
+    HorizonLX=circle.center.x+R*2*3
+    HorizonLY=circle.center.y+R*2*r
+    OriginalHorizonLX=circle.center.x+R*2*3
+    for b in range(3):
+        for d in range(c):
+            NewCircle = rg.Circle(rg.Point(HorizonLX,HorizonLY), R)
+            NewCircle.fill_color = circle.fill_color
+            NewCircle.attach_to(window)
+            window.render(0.1)
+            HorizonLX+=R*2
+        HorizonLY+=R*2
+        HorizonLX=OriginalHorizonLX
 
 def run_test_draw_wall_on_right():
     """ Tests the    draw_wall_on_right    function. """
@@ -121,9 +155,24 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # Done: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    OriginalUR=rectangle.get_upper_right_corner()
+    OriginalLL=rectangle.get_lower_left_corner()
+    StartUR=rectangle.get_upper_right_corner()
+    StartLL=rectangle.get_lower_left_corner()
+    for k in range(n):
+        for p in range(k+1):
+            NewRect=rg.Rectangle(OriginalUR,OriginalLL)
+            NewRect.attach_to(window)
+            window.render(0.1)
+            OriginalLL.move_by(-(rectangle.get_width()),0)
+            OriginalUR.move_by(-(rectangle.get_width()),0)
+        OriginalUR.x=StartUR.x
+        OriginalLL.x=StartLL.x
+        OriginalUR.move_by(0,rectangle.get_height())
+        OriginalLL.move_by(0,rectangle.get_height())
 
 
 # ----------------------------------------------------------------------
